@@ -24,3 +24,23 @@
         </div>
     </div>
 </template>
+
+<script setup>
+import axios from 'axios'
+import { useUserStore } from '../store/user-store'
+import { useRouter } from 'vue-router'
+
+const userStore = useUserStore();
+const router = useRouter();
+
+const callback = async (res) => {
+    await userStore.getUserDetailsFromGoogle(res)
+    setTimeout(() => {
+        router.push('/')
+    }, 200)
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>
