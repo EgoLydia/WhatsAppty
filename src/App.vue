@@ -9,4 +9,7 @@ import { onMounted } from 'vue';
 const userStore = useUserStore();
 const router = useRouter();
 
+onMounted(() => {
+  if (!userStore.sub) router.push('/login')
+})
 </script>
