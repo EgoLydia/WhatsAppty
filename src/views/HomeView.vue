@@ -87,9 +87,18 @@ import DotsVerticalIcon from "vue-material-design-icons/DotsVertical.vue";
 import AccountGroupIcon from "vue-material-design-icons/AccountGroup.vue";
 import { ref } from "@vue/reactivity";
 import FindFriendsView from './FindFriendsView.vue'
+import { useUserStore } from '../store/user-store'
+import { useRouter } from 'vue-router'
 
+const router = useRouter();
+const userStore = useUserStore()
 const open = ref(true);
 const showFindFriends = ref(true)
+
+const logout = () => {
+    let res = confirm('Are you sure you want to logout?')
+    if (res) userStore.logout(); router.push('/login')
+}
 
 </script>
 
