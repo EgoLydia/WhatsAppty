@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
+import { db } from '../firebase-init';
+import { getDoc, setDoc, doc } from 'firebase/firestore';
 
 axios.defaults.baseURL = 'http://localhost:4001/';
 
@@ -20,6 +22,7 @@ export const useUserStore = defineStore('user', {
                     token: data.credential
                 })
 
+                let userExists = await this.checkIfUserExists(res.data.sub)
                 if (!userExists) await this.saveUserDetails(res);
 
                 this.sub = res.data.sub
@@ -30,6 +33,11 @@ export const useUserStore = defineStore('user', {
             } catch (e) {
                 console.log(e);
             }
+        },
+        async checkIfUserExists(id) {
+            const docRef = doc(db, 'users', id)
+            const docSnap = await getDoc(docRef);
+            return docSnap.exists();
         },
         async saveUserDetails(res) {
             try {
