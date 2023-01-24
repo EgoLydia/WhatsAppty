@@ -35,12 +35,14 @@
             </div>
         </div>
 
+        <div v-if="showFindFriends">
             <ChatsView class="mt-[100px]" />
         </div>
         <div v-else>
             <findFriendsView class=" pt-20" />
         </div>
 
+        <div v-if="open">
             <MessageView />
         </div>
         <div v-else>
@@ -77,3 +79,20 @@
     </div>
 </template>
 
+<script setup>
+import ChatsView from "./ChatsView.vue";
+import MessageView from "./MessageView.vue";
+import MagnifyIcon from "vue-material-design-icons/Magnify.vue";
+import DotsVerticalIcon from "vue-material-design-icons/DotsVertical.vue";
+import AccountGroupIcon from "vue-material-design-icons/AccountGroup.vue";
+import { ref } from "@vue/reactivity";
+import FindFriendsView from './FindFriendsView.vue'
+
+const open = ref(true);
+const showFindFriends = ref(true)
+
+</script>
+
+<style lang="scss" scoped>
+
+</style>
