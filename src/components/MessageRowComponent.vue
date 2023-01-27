@@ -65,6 +65,13 @@ const tickColor = (chat) =>{
 const lastChatMessage = (chat) => {
   return chat.messages[chat.messages.length - 1].message.substring(0, 20);
 };
+const lastCreatedAt = (chat) => {
+  if (chat.messages.length) {
+    return moment(chat.messages[chat.messages.length - 1].createdAt).format(
+      "MMM D YY | HH:MM A"
+    );
+  }
+};
 </script>
 
 <style lang="scss" scoped>
