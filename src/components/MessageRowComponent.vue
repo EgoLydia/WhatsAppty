@@ -49,6 +49,19 @@ const isActive = computed(() => {
   return false
 })
 
+const tickColor = (chat) =>{
+  let color = ''
+  if (chat.sub1 == sub.value) {
+    if (chat.sub1HasViewed) color = '#7df9ff'
+    else color = '#B5B5B5'
+  }
+
+  if (chat.sub2 == sub.value) {
+    if (chat.sub2HasViewed) color = '#7df9ff'
+    else color = '#B5B5B5'
+  }
+  return color
+}
 </script>
 
 <style lang="scss" scoped>
