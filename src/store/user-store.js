@@ -120,6 +120,38 @@ export const useUserStore = defineStore('user', {
                 })
             })
         },
+        async sendMessage(data) {
+            try {
+                if (data.chatId) {
+                    await updateDoc(doc(db, `chat/${data.chatId}`), {
+                        sub1HasViewed: false,
+                        sub2HasViewed: false,
+                        messages: arrayUnion({
+                            sub: this.sub,
+                            message: data.message,
+                            createdAt: Date.now()
+                        })
+                    })
+                } else {
+                    let id = uuid()
+                    await setDoc(doc(db, `chat/${id}`), {
+                        sub1: this.sub,
+                        sub2: data.sub2,
+                        sub1HasViewed: false,
+                        sub2HasViewed: false,
+                        messages: [{
+                            sub: this.sub,
+                            message: data.message,
+                            createdAt: Date.now()
+                        }]
+                    })
+                    this.userDataForChat[0].id = id
+                    this.showFindFriends = false
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        },
         logout() {
             this.sub = '',
                 this.email = '',
