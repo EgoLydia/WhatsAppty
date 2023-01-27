@@ -16,6 +16,12 @@
 </template>
 
 <script setup>
+const hideMe = (user) => {
+    if (user.sub === sub.value) {
+        return false
+    }
+    return true
+}
 const createNewChat = (user) => {
     userDataForChat.value = []
     userDataForChat.value.push({
