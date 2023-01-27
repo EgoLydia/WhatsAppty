@@ -24,7 +24,7 @@ export const useUserStore = defineStore('user', {
                     token: data.credential
                 })
 
-                let userExists = await this.checkIfUserExists(res.data.sub)
+                const userExists = await this.checkIfUserExists(res.data.sub)
                 if (!userExists) await this.saveUserDetails(res);
 
                 this.sub = res.data.sub
