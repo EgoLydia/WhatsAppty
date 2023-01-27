@@ -1,6 +1,10 @@
 <template>
     <div id="Messages" class="pt-1 z-0 overflow-auto fixed h-[calc(100vh-100px)]">
-        <MessageRowComponent />
+        <div v-for="chat in chats" :key="chat">
+            <div @click="openChat(chat)">
+                <MessageRowComponent :chat="chat" />
+            </div>
+        </div>
     </div>
 </template>
 
@@ -13,6 +17,13 @@ import { useUserStore } from '../store/user-store';
 const userStore = useUserStore();
 
 const { userDataForChat, chats, sub } = storeToRefs(userStore)
+
+onMounted(async () => {
+    if (userDataForChat.value.length) {
+        await userStore.getChatById(userDataForChat.value[0].id)
+    }
+})
+
 const openChat = async (chat) => {
     userDataForChat.value = []
     userDataForChat.value.push({
