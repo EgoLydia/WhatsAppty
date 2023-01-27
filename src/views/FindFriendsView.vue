@@ -16,6 +16,13 @@
 </template>
 
 <script setup>
+import { computed } from '@vue/runtime-core';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '../store/user-store'
+import { ref } from 'vue';
+
+const userStore = useUserStore();
+const { sub, userDataForChat, allUsers, removeUsersFromFindFriends } = storeToRefs(userStore);
 const hideMe = (user) => {
     if (user.sub === sub.value) {
         return false
