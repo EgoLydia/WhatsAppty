@@ -36,6 +36,19 @@ const { sub, userDataForChat } = storeToRefs(userStore)
 const props = defineProps({ chat: Object });
 
 const { chat } = toRefs(props);
+
+const isActive = computed(() => {
+  if (userDataForChat.value.length) {
+    if (userDataForChat.value[0].sub1 === chat.value.user.sub) {
+      return true
+    }
+    if (userDataForChat.value[0].sub2 === chat.value.user.sub) {
+      return true
+    }
+  }
+  return false
+})
+
 </script>
 
 <style lang="scss" scoped>
