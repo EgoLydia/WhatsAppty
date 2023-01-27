@@ -95,6 +95,9 @@ const userStore = useUserStore()
 const open = ref(true);
 const showFindFriends = ref(true)
 
+onMounted(async () => {
+    try {
+        userStore.getAllUsers()
 const logout = () => {
     let res = confirm('Are you sure you want to logout?')
     if (res) userStore.logout(); router.push('/login')

@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', {
         picture: '',
         firstName: '',
         lastName: '',
+        allUsers: [],
     }),
 
     actions: {
@@ -32,6 +33,18 @@ export const useUserStore = defineStore('user', {
                 this.lastName = res.data.family_name
             } catch (e) {
                 console.log(e);
+            }
+        },
+        async getAllUsers() {
+            const querySnapShot = await getDocs(collection(db, 'users'))
+            let results = []
+            querySnapShot.forEach(doc => { results.push(doc.data()) })
+
+            if (results.length) {
+                this.allUsers = []
+                results.forEach(res => {
+                    this.allUsers.push(res)
+                })
             }
         },
         async checkIfUserExists(id) {
