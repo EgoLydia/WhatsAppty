@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { v4 as uuid } from 'uuid'
 import { db } from '../firebase-init';
-import { getDoc, setDoc, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc, getDocs, collection, updateDoc, arrayUnion, onSnapshot, query } from 'firebase/firestore';
 
 axios.defaults.baseURL = 'http://localhost:4001/';
 
@@ -14,8 +14,11 @@ export const useUserStore = defineStore('user', {
         firstName: '',
         lastName: '',
         allUsers: [],
+        userDataForChat: [],
+        showFindFriends: false,
         currentChat: null,
         removeUsersFromFindFriends: [],
+        chats: []
     }),
 
     actions: {
@@ -151,6 +154,12 @@ export const useUserStore = defineStore('user', {
             } catch (e) {
                 console.log(e);
             }
+        },
+        async hasReadMessage(data) {
+            await updateDoc(doc(db, `chat/${data.id}`), {
+                [data.key1]: data.val1,
+                [data.key2]: data.val2
+            }, { merge: true }) 
         },
         logout() {
             this.sub = '',
