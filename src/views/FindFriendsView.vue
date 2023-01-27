@@ -2,6 +2,7 @@
     <div class="pt-[100px] overflow-auto fixed h-[100vh] w-full" id="FindFriends">
         <div class="flex w-full p-4 items-center cursor-pointer">
             <img class="rounded-full mr-4 w-12" src="http://random.imagecdn.app/100/100" alt="" />
+        <div v-for="user in usersComputed" :key="user">
             <div class="w-full">
                 <div class="flex justify-between items-center">
                     <div class="text-[15px] text-gray-600">Frank</div>
@@ -23,6 +24,9 @@ import { ref } from 'vue';
 
 const userStore = useUserStore();
 const { sub, userDataForChat, allUsers, removeUsersFromFindFriends } = storeToRefs(userStore);
+
+const users = ref([]);
+
 const hideMe = (user) => {
     if (user.sub === sub.value) {
         return false
@@ -39,6 +43,16 @@ const createNewChat = (user) => {
         firstName:user.firstName,  
     })
 }
+
+const usersComputed = computed(() => {
+    allUsers.value.forEach(user => users.value.push(user))
+    removeUsersFromFindFriends.value.forEach(remove => {
+        let index = users.value.findIndex(user => user.sub == remove)
+        users.value.splice(index, 1)
+    })
+
+    return users.value
+})
 </script>
 
 <style lang="scss" scoped>
