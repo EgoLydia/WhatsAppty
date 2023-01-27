@@ -54,6 +54,14 @@
                         </div>
 
                     </div>
+watch(() => currentChat.value, (chat) => {
+    if (chat.length) {
+        setTimeout(() => {
+            let objDiv = document.getElementById('MessagesSection')
+           objDiv.scrollTop = objDiv.scrollHeight
+        }, 50)
+    }
+}, { deep: true })
 
                     <div class="w-[calc(100vw-420px)] p-2.5 z-10 bg-[#f0f0f0] fixed bottom-0">
                         <div class="flex items-center justify-center">
