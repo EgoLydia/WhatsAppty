@@ -62,6 +62,9 @@ const tickColor = (chat) =>{
   }
   return color
 }
+const lastChatMessage = (chat) => {
+  return chat.messages[chat.messages.length - 1].message.substring(0, 20);
+};
 </script>
 
 <style lang="scss" scoped>
