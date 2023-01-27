@@ -1,16 +1,17 @@
 <template>
     <div class="pt-[100px] overflow-auto fixed h-[100vh] w-full" id="FindFriends">
-        <div class="flex w-full p-4 items-center cursor-pointer">
-            <img class="rounded-full mr-4 w-12" src="http://random.imagecdn.app/100/100" alt="" />
         <div v-for="user in usersComputed" :key="user">
+            <div v-if="hideMe(user)" @click="createNewChat(user)" class="flex w-full p-4 items-center cursor-pointer">
+                <img class="rounded-full mr-4 w-12" :src="user.picture || ''" alt="" />
             <div class="w-full">
                 <div class="flex justify-between items-center">
-                    <div class="text-[15px] text-gray-600">Frank</div>
+                    <div class="text-[15px] text-gray-600">{{ user.firstName }} {{ user.lastName }}</div>
                 </div>
                 <div class="flex items-center">
                     <div class="text-[15px] text-gray-500">Hi, I'm using WhatsAppty!</div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="border-b w-[calc(100%-80px)] float-right"></div>
     </div>
@@ -33,6 +34,7 @@ const hideMe = (user) => {
     }
     return true
 }
+
 const createNewChat = (user) => {
     userDataForChat.value = []
     userDataForChat.value.push({
