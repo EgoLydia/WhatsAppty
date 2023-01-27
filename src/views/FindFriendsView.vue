@@ -16,6 +16,16 @@
 </template>
 
 <script setup>
+const createNewChat = (user) => {
+    userDataForChat.value = []
+    userDataForChat.value.push({
+        id: '',
+        sub1: sub.value,
+        sub2: user.sub,
+        picture: user.picture,
+        firstName:user.firstName,  
+    })
+}
 </script>
 
 <style lang="scss" scoped>
