@@ -126,6 +126,12 @@ export const useUserStore = defineStore('user', {
                 this.picture = '',
                 this.firstName = '',
                 this.lastName = ''
+            this.showFindFriends = false
+            this.userDataForChat = []
+            this.allUsers = []
+            this.chats = []
+            this.currentChat = null
+            this.removeUsersFromFindFriends = []
         },
     },
     persist: true
