@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', {
         firstName: '',
         lastName: '',
         allUsers: [],
+        currentChat: null,
     }),
 
     actions: {
@@ -65,6 +66,13 @@ export const useUserStore = defineStore('user', {
                 console.log(e);
             }
 
+        },
+        async getChatById(id) {
+            onSnapshot(doc(db, 'chat', id), (doc) => {
+                let result = []
+                result.push(doc.data())
+                this.currentChat = result
+            })
         },
         logout() {
             this.sub = '',
