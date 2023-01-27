@@ -15,7 +15,6 @@
     <div class="text-[15px] w-full text-gray-500 flex items-center justify-between">
       {{ lastChatMessage(chat) }}...
     </div>
-    <div class=" border-b w-[calc(100%-80px)] float-right"></div>
   </div>
   </div>
   </div>
@@ -24,7 +23,19 @@
 </template>
 
 <script setup>
-import CheckAllIcon from 'vue-material-design-icons/CheckAll.vue'
+import CheckAllIcon from "vue-material-design-icons/CheckAll.vue";
+import { computed, toRefs } from "vue";
+import moment from "moment";
+import { useUserStore } from '../store/user-store';
+import { storeToRefs } from "pinia";
+
+const userStore = useUserStore();
+
+const { sub, userDataForChat } = storeToRefs(userStore)
+
+const props = defineProps({ chat: Object });
+
+const { chat } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>
