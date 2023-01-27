@@ -5,7 +5,14 @@
 </template>
 
 <script setup>
+import { onMounted } from '@vue/runtime-core';
+import { storeToRefs } from 'pinia';
 import MessageRowComponent from '../components/MessageRowComponent.vue';
+import { useUserStore } from '../store/user-store';
+
+const userStore = useUserStore();
+
+const { userDataForChat, chats, sub } = storeToRefs(userStore)
 const openChat = async (chat) => {
     userDataForChat.value = []
     userDataForChat.value.push({
